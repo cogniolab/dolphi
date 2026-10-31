@@ -6,6 +6,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/cogniolab/dolphi/actions/workflows/ci.yml"><img alt="Community checks" src="https://github.com/cogniolab/dolphi/actions/workflows/ci.yml/badge.svg?branch=main"></a>
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-FF5F1F"></a>
   <img alt="Developer alpha" src="https://img.shields.io/badge/status-developer_alpha-f4c76d">
   <img alt="Rust core" src="https://img.shields.io/badge/core-Rust-FF5F1F">

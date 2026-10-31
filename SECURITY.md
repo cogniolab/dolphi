@@ -10,11 +10,9 @@ Report vulnerabilities privately to [dev@cogniolab.com](mailto:dev@cogniolab.com
 This is the maintainer-confirmed monitored contact for Dolphi. Do not put exploit
 details, keys, tokens or private databases in public issues.
 
-The repository destination is [cogniolab/dolphi](https://github.com/cogniolab/dolphi).
-GitHub private vulnerability reporting will be an additional route once enabled
-and verified. Until then, use the email above. The source bundle remains a release
-candidate until the repository and prerelease are actually published. See the
-[publication checklist](docs/RELEASING.md).
+You can also use [GitHub's private vulnerability reporting form](https://github.com/cogniolab/dolphi/security/advisories/new).
+Private reporting is enabled for this public repository. The email above remains
+available. See the [publication checklist](docs/RELEASING.md).
 
 Include the affected version/profile, platform, prerequisites, reproduction with
 synthetic data, expected/actual behavior and impact. Never send your real keys,
