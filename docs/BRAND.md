@@ -2,7 +2,7 @@
 
 **Dolphi** is the product name. The compact wordmark uses **DOLPHI** with an
 original abstract dolphin head in profile: a rounded forehead, narrow beak,
-angular eye and a friendlier curved negative-space smile. The mark was designed as native SVG
+circular eye and a friendlier curved negative-space smile. The mark was designed as native SVG
 artwork and remains usable as a single color on a transparent background.
 
 ## Assets

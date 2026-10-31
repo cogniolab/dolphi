@@ -8,7 +8,7 @@
   <rect width="1200" height="360" rx="20" fill="url(#background)"/>
   <rect width="1200" height="360" rx="20" fill="url(#grid)"/>
   <g transform="translate(72 70) scale(1.5)" color="#FF5F1F">
-    <path d="M6 52C1 39 5 22 16 12C25 3 38 4 46 12C51 17 52 22 49 27L68 28C71 28 72 31 68 33L47 40C40 49 29 54 17 54L25 42C17 45 11 49 6 52Z M43 28L37 26L39 31Z M25 35C32 40 47 36 68 30L48 39C39 44 31 44 27 40Q25 38 25 35Z" fill="currentColor" fill-rule="evenodd"/>
+    <path d="M6 52C1 39 5 22 16 12C25 3 38 4 46 12C51 17 52 22 49 27L68 28C71 28 72 31 68 33L47 40C40 49 29 54 17 54L25 42C17 45 11 49 6 52Z M42.5 28A2.5 2.5 0 1 0 37.5 28A2.5 2.5 0 1 0 42.5 28Z M25 35C32 40 47 36 68 30L48 39C39 44 31 44 27 40Q25 38 25 35Z" fill="currentColor" fill-rule="evenodd"/>
     <path d="M84 12H96C110 12 118 20 118 33S110 54 96 54H84Z M164 33C164 46 157 54 147 54S130 46 130 33S137 12 147 12S164 20 164 33Z M182 12V54H208 M230 54V12H245C257 12 264 18 264 27S257 42 245 42H230 M282 12V54 M314 12V54 M282 33H314 M337 12V54" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="square" stroke-linejoin="round"/>
   </g>
   <text x="76" y="235" fill="#d4e3e9" font-family="ui-sans-serif,system-ui,Segoe UI,sans-serif" font-size="28">Give your agents memory, keep control of your data.</text>
