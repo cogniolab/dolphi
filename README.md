@@ -86,7 +86,8 @@ experimental. The opt-in profile uses SQLCipher Community with pinned OpenSSL
 sources. Both Dolphi profiles remain alpha. See [storage profiles](docs/ARCHITECTURE.md#storage-profiles).
 
 For a persistent encrypted server and two-worker Python demo, follow the
-[quick start](docs/QUICKSTART.md). This release is distributed from source;
+[quick start](docs/QUICKSTART.md). Download the source, checksums and validation
+report from [v0.1.0-alpha.1](https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.1).
 Cargo/PyPI packages and hosted services are not published by this alpha.
 
 ## A small Rust example

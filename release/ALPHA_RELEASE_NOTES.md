@@ -19,5 +19,7 @@ independent security assessment, production recovery objectives and additional
 platforms remain unqualified. See [limits](../docs/LIMITS.md),
 [security](../SECURITY.md) and [roadmap](../ROADMAP.md).
 
-The release notes are prepared text until a public repository and prerelease
-exist. Attach actual checksums and CI results at publication.
+The [developer prerelease](https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.1)
+includes the source archive, `SHA256SUMS` and `VALIDATION.json`.
+All seven [hosted CI jobs](https://github.com/cogniolab/dolphi/actions/runs/41254184656)
+passed for release commit `8e3875cc50f2e92adc9ce7a546621286d1b3feb7`.

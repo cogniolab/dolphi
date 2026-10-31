@@ -5,12 +5,13 @@ currently remains `0.1.0` and registry publishing is disabled.
 
 ## Unreleased
 
-- Community source release and public repository preparation.
+Future work is tracked in the [roadmap](ROADMAP.md).
 
-## 0.1.0-alpha.1 — prepared October 31, 2026
+## 0.1.0-alpha.1 — October 31, 2026
 
-This entry describes the first source alpha candidate; it is not a claim that a
-GitHub release or package registry publication has occurred.
+Published as a [Community developer prerelease](https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.1).
+Source archives, checksums and the validation report are available with the release.
+Cargo/PyPI package publishing remains disabled.
 
 ### Added
 
