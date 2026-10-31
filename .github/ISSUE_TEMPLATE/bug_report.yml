@@ -1,0 +1,40 @@
+name: Bug report
+description: Report a reproducible problem using synthetic data.
+title: "bug: "
+body:
+  - type: markdown
+    attributes:
+      value: "Report vulnerabilities privately using SECURITY.md. Never attach real databases, credentials or customer data."
+  - type: input
+    id: version
+    attributes:
+      label: Commit or source release
+    validations:
+      required: true
+  - type: dropdown
+    id: profile
+    attributes:
+      label: Storage profile
+      options:
+        - Default embedded
+        - SQLCipher Community
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: OS, architecture and Rust/Python versions
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal synthetic reproduction
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true

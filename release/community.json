@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "tag": "v0.1.0-alpha.1",
+  "stage": "developer_alpha",
+  "repository": "cogniolab/dolphi",
+  "security_email": "dev@cogniolab.com",
+  "private_vulnerability_reporting_verified": false,
+  "maintainer_contact": "dev@cogniolab.com",
+  "published": false
+}

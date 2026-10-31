@@ -1,0 +1,51 @@
+[Unit]
+Description=Dolphi encrypted storage service
+After=local-fs.target
+
+[Service]
+Type=exec
+DynamicUser=yes
+StateDirectory=dolphi
+StateDirectoryMode=0700
+WorkingDirectory=/var/lib/dolphi
+LoadCredential=database.key:/etc/dolphi/database.key
+ExecStartPre=/usr/bin/install -m 0600 %d/database.key /var/lib/dolphi/database.key
+ExecStart=/usr/local/libexec/dolphi-server serve /var/lib/dolphi/memory.db /var/lib/dolphi/database.key 8787
+UMask=0077
+UnsetEnvironment=OPENSSL_CONF OPENSSL_MODULES OPENSSL_ENGINES LD_PRELOAD LD_LIBRARY_PATH
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+ProtectProc=invisible
+ProcSubset=pid
+RestrictSUIDSGID=yes
+RestrictRealtime=yes
+RestrictNamespaces=yes
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+RestrictAddressFamilies=AF_INET AF_UNIX
+IPAddressDeny=any
+IPAddressAllow=localhost
+SystemCallArchitectures=native
+LimitCORE=0
+LimitNOFILE=1024
+TasksMax=64
+MemoryMax=512M
+CPUQuota=200%
+Restart=on-failure
+RestartSec=2s
+TimeoutStopSec=30s
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

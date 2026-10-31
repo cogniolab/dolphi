@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title description">
+  <title id="title">Dolphi</title>
+  <desc id="description">Give your agents memory, keep control of your data. Original abstract dolphin-head identity by Cognio Lab.</desc>
+  <defs>
+    <linearGradient id="background" x2="1" y2="1"><stop stop-color="#10212b"/><stop offset="1" stop-color="#09121b"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0v32" fill="none" stroke="#FF5F1F" stroke-opacity=".035"/></pattern>
+  </defs>
+  <rect width="1200" height="360" rx="20" fill="url(#background)"/>
+  <rect width="1200" height="360" rx="20" fill="url(#grid)"/>
+  <g transform="translate(72 70) scale(1.5)" color="#FF5F1F">
+    <path d="M6 52C1 39 5 22 16 12C25 3 38 4 46 12C51 17 52 22 49 27L68 28C71 28 72 31 68 33L47 40C40 49 29 54 17 54L25 42C17 45 11 49 6 52Z M43 28L37 26L39 31Z M25 35C32 40 47 36 68 30L48 39C39 44 31 44 27 40Q25 38 25 35Z" fill="currentColor" fill-rule="evenodd"/>
+    <path d="M84 12H96C110 12 118 20 118 33S110 54 96 54H84Z M164 33C164 46 157 54 147 54S130 46 130 33S137 12 147 12S164 20 164 33Z M182 12V54H208 M230 54V12H245C257 12 264 18 264 27S257 42 245 42H230 M282 12V54 M314 12V54 M282 33H314 M337 12V54" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="square" stroke-linejoin="round"/>
+  </g>
+  <text x="76" y="235" fill="#d4e3e9" font-family="ui-sans-serif,system-ui,Segoe UI,sans-serif" font-size="28">Give your agents memory, keep control of your data.</text>
+  <text x="77" y="294" fill="#FF5F1F" font-family="ui-monospace,Consolas,monospace" font-size="13" letter-spacing="2">OPEN-SOURCE AGENT MEMORY</text>
+  <g transform="translate(916 91)" stroke="#FF5F1F" fill="none" opacity=".65">
+    <path d="M0 28h38l34-18M38 28l34 23M0 108h38l34-23M38 108l34 23" stroke-opacity=".4" stroke-width="2"/>
+    <rect x="-12" y="14" width="28" height="28" rx="9" fill="#18313a"/>
+    <rect x="-12" y="94" width="28" height="28" rx="9" fill="#18313a"/>
+    <rect x="70" y="-12" width="92" height="154" rx="22" stroke-opacity=".5" fill="#10242d"/>
+    <path d="M93 21h45m-45 25h33m-33 25h45m-45 25h26" stroke-width="5" stroke-linecap="round"/>
+  </g>
+  <text x="1124" y="294" text-anchor="end" fill="#708994" font-family="ui-sans-serif,system-ui,sans-serif" font-size="14">Cognio Lab</text>
+</svg>

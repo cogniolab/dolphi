@@ -1,0 +1,8 @@
+[Unit]
+Description=Record Dolphi backup alert for %I
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/logger -p daemon.err "Dolphi backup or recovery health check failed for %I; inspect its journal and protected status.json."
+NoNewPrivileges=yes
+LimitCORE=0

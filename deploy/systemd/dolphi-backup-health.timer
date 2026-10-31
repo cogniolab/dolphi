@@ -1,0 +1,11 @@
+[Unit]
+Description=Dolphi backup health check every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+Persistent=true
+AccuracySec=5s
+Unit=dolphi-backup-health.service
+
+[Install]
+WantedBy=timers.target

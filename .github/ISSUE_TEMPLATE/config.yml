@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private security report
+    url: mailto:dev@cogniolab.com
+    about: Report vulnerabilities privately; do not post exploits or credentials in public issues.
+  - name: Maintainer contact
+    url: mailto:dev@cogniolab.com
+    about: Private maintainer or conduct concerns.

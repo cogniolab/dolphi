@@ -1,0 +1,14 @@
+[Unit]
+Description=Check Dolphi verified backup age and restore status
+OnFailure=dolphi-backup-alert@%n.service
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 -I /usr/local/libexec/dolphi/backup_operations.py health --config /etc/dolphi/backup-operations.json
+TimeoutStartSec=30s
+NoNewPrivileges=yes
+PrivateTmp=yes
+LimitCORE=0
+MemoryMax=64M
+TasksMax=16

@@ -1,0 +1,23 @@
+[package]
+name = "dolphi-encryption-evaluation"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+
+# Standalone harness, also imported by the opt-in encrypted backend.
+[workspace]
+
+# Reviewed local compatibility patch: only the source-bundle pin changes.
+# Native source packages apply only to the opt-in encrypted profile.
+[patch.crates-io]
+libsqlite3-sys = { path = "vendor/libsqlite3-sys" }
+openssl-src = { path = "vendor/openssl-src" }
+
+[dependencies]
+rusqlite = { version = "=0.41.1", default-features = false, features = ["bundled-sqlcipher-vendored-openssl"] }
+serde_json = "1"
+tempfile = "3"
+zeroize = "1"
+getrandom = "0.4"
+tokio = { version = "1", features = ["sync", "rt", "macros", "time"] }

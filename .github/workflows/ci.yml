@@ -1,0 +1,102 @@
+name: Community checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: community-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  repository-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 scripts/check_community_release.py --root .
+      - run: python3 -m unittest discover -s scripts/tests -v
+  product:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: embedded
+            args: ''
+          - profile: sqlcipher
+            args: --no-default-features --features sqlcipher-backend
+    env:
+      CARGO_TARGET_DIR: target/${{ matrix.profile }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - run: cargo fmt --check
+      - run: cargo clippy --locked ${{ matrix.args }} --all-targets -- -D warnings
+      - run: cargo test --locked ${{ matrix.args }} --all-targets
+      - run: cargo test --locked ${{ matrix.args }} --doc
+      - run: cargo run --locked ${{ matrix.args }} --example community
+      - run: cargo build --locked ${{ matrix.args }} --bin dolphi-server
+      - run: PYTHONPATH=sdk/python DOLPHI_TEST_SERVER=target/${{ matrix.profile }}/debug/dolphi-server python3 -m unittest discover -s sdk/python/tests -v
+  dependency-security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: python3 scripts/check_dependency_policy.py
+      - run: cargo install cargo-audit --version 0.22.2 --locked
+      - run: cargo audit --deny unsound
+      - run: cargo audit --file experiments/sqlcipher/Cargo.lock --deny unsound
+  native-source-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update && sudo apt-get install -y tcl-dev gnupg
+      - run: python3 experiments/sqlcipher/check_build.py --lock Cargo.lock
+      - run: python3 experiments/sqlcipher/verify_signatures.py
+      - run: python3 experiments/sqlcipher/reproduce_source.py
+  cross-profile-migration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build --locked --bin dolphi-server --target-dir target/embedded
+      - run: cargo build --locked --no-default-features --features sqlcipher-backend --bin dolphi-server --target-dir target/sqlcipher
+      - run: python3 scripts/test_migration.py --embedded-server target/embedded/debug/dolphi-server --encrypted-server target/sqlcipher/debug/dolphi-server
+  software-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build --release --locked --no-default-features --features sqlcipher-backend --bin dolphi-server --example storage_control
+      - run: mkdir -p target/qualification
+      - run: cc -shared -fPIC -O2 -Wall -Wextra -Werror qualification/io_faults.c -o target/qualification/io_faults.so
+      - run: python3 qualification/storage_faults.py --server target/release/dolphi-server --control target/release/examples/storage_control --interposer target/qualification/io_faults.so --output target/storage-faults.json
+      - run: python3 qualification/storage_faults.py --server target/release/dolphi-server --control target/release/examples/storage_control --interposer target/qualification/io_faults.so --streaming-artifacts-only --output target/streaming-faults.json
+      - run: python3 qualification/backup_operations.py --server target/release/dolphi-server --output target/backup-operations.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: software-recovery-evidence
+          path: |
+            target/storage-faults.json
+            target/streaming-faults.json
+            target/backup-operations.json

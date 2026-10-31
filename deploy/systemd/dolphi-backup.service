@@ -1,0 +1,19 @@
+[Unit]
+Description=Dolphi coordinated encrypted backup and off-host restore verification
+OnFailure=dolphi-backup-alert@%n.service
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 -I /usr/local/libexec/dolphi/backup_operations.py run --config /etc/dolphi/backup-operations.json
+ExecStopPost=/usr/bin/python3 -I /usr/local/libexec/dolphi/backup_operations.py resume --config /etc/dolphi/backup-operations.json
+TimeoutStartSec=35min
+TimeoutStopSec=60s
+KillMode=control-group
+NoNewPrivileges=yes
+PrivateTmp=yes
+LimitCORE=0
+MemoryMax=512M
+MemorySwapMax=0
+CPUQuota=200%
+TasksMax=64

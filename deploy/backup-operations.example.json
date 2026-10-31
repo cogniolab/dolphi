@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "server": "/usr/local/libexec/dolphi-server",
+  "source": {
+    "database": "/var/lib/dolphi/memory.db",
+    "database_key": "/etc/dolphi/database.key",
+    "coordination": {
+      "mode": "systemd",
+      "unit": "dolphi.service",
+      "scope": "system",
+      "health_url": "http://127.0.0.1:8787/health"
+    }
+  },
+  "spool": "/var/backups/dolphi",
+  "backup_key": { "id": "operator-selected-key-id", "path": "/etc/dolphi/backup.key" },
+  "destination": {
+    "transport": "ssh",
+    "host": "backup-user@recovery-host",
+    "root": "/srv/dolphi-recovery",
+    "vault_key": "/srv/dolphi-key-vault/backup.key"
+  },
+  "policy": {
+    "interval_seconds": 300,
+    "snapshot_timeout_seconds": 60,
+    "rpo_seconds": 900,
+    "rto_seconds": 1800,
+    "retention_days": 7,
+    "minimum_verified": 3,
+    "repository_max_bytes": 68719476736,
+    "accepted": false
+  }
+}
