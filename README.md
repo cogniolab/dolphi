@@ -1,8 +1,12 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dolphi-lockup.svg">
-    <img src="docs/assets/dolphi-lockup-dark.svg" alt="Dolphi — give your agents memory, keep control of your data." width="355">
+    <img src="docs/assets/dolphi-lockup-dark.svg" alt="Dolphi" width="355">
   </picture>
+</p>
+
+<p align="center">
+  <strong>Give your agents memory, keep control of your data.</strong>
 </p>
 
 <p align="center">
@@ -17,12 +21,11 @@
   <a href="docs/README.md">Documentation</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
   <a href="CONTRIBUTING.md">Contribute</a> ·
-  <a href="ROADMAP.md">Roadmap</a>
+  <a href="ROADMAP.md">Roadmap</a> ·
+  <a href="https://github.com/cogniolab/dolphi/tree/main">Source code</a>
 </p>
 
 # Dolphi Community
-
-**Give your agents memory, keep control of your data.**
 
 Dolphi is an open-source memory database for AI agents. Each agent gets private
 working memory. Shared changes go through a trusted owner. Your application
