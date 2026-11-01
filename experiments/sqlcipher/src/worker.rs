@@ -19,9 +19,11 @@ pub enum Error {
     Thread(std::io::Error),
 }
 
+/// Explicit shutdown joins off the async runtime. Final drop also joins, so
+/// native connection destruction cannot race process-wide crypto cleanup.
 pub struct Worker {
-    sender: mpsc::Sender<Job>,
-    thread: JoinHandle<()>,
+    sender: Option<mpsc::Sender<Job>>,
+    thread: Option<JoinHandle<()>>,
 }
 
 impl Worker {
@@ -70,8 +72,14 @@ impl Worker {
                 }
             })
             .map_err(Error::Thread)?;
+        // Own the thread before awaiting readiness: startup failure or canceled
+        // opening must close and join it just like a successfully opened worker.
+        let worker = Self {
+            sender: Some(sender),
+            thread: Some(thread),
+        };
         ready_rx.await.map_err(|_| Error::Closed)??;
-        Ok(Self { sender, thread })
+        Ok(worker)
     }
 
     /// Closures are internal trusted operations and must bound their own work.
@@ -98,6 +106,8 @@ impl Worker {
     {
         let (response_tx, response_rx) = oneshot::channel();
         self.sender
+            .as_ref()
+            .ok_or(Error::Closed)?
             .try_send(Box::new(move |connection| {
                 let _ = response_tx.send(operation(connection));
             }))
@@ -109,12 +119,26 @@ impl Worker {
     }
 
     /// Drain accepted work and close the connection without joining on Tokio.
-    pub async fn shutdown(self) -> Result<(), Error> {
-        drop(self.sender);
-        tokio::task::spawn_blocking(move || self.thread.join())
+    pub async fn shutdown(mut self) -> Result<(), Error> {
+        drop(self.sender.take());
+        let thread = self.thread.take().ok_or(Error::Closed)?;
+        tokio::task::spawn_blocking(move || thread.join())
             .await
             .map_err(|_| Error::Closed)?
             .map_err(|_| Error::Closed)
+    }
+}
+
+impl Drop for Worker {
+    fn drop(&mut self) {
+        drop(self.sender.take());
+        if let Some(thread) = self.thread.take() {
+            // A trusted closure can own the final Arc. Closing its sender lets
+            // the receive loop finish after that closure; it cannot join itself.
+            if thread.thread().id() != std::thread::current().id() {
+                let _ = thread.join();
+            }
+        }
     }
 }
 
@@ -122,6 +146,51 @@ impl Worker {
 mod tests {
     use super::*;
     use std::sync::{Arc, mpsc as blocking};
+
+    #[tokio::test]
+    async fn dropping_worker_drains_accepted_work_before_returning() {
+        let temp = tempfile::tempdir().unwrap();
+        let path = temp.path().join("db");
+        let worker = Worker::open(path.clone(), [9; 32], 2).await.unwrap();
+        let (started_tx, started_rx) = oneshot::channel();
+        let (release_tx, release_rx) = blocking::channel();
+        let response = worker
+            .try_run(move |connection| {
+                started_tx.send(()).unwrap();
+                release_rx.recv().unwrap();
+                connection.execute("INSERT INTO agents VALUES ('drained')", [])
+            })
+            .unwrap();
+        started_rx.await.unwrap();
+        let (dropped_tx, dropped_rx) = blocking::channel();
+        let dropper = std::thread::spawn(move || {
+            drop(worker);
+            dropped_tx.send(()).unwrap();
+        });
+        // Release the queued operation before any assertion, including on the
+        // old detached-worker implementation, so this test cannot strand it.
+        let returned_early = dropped_rx
+            .recv_timeout(std::time::Duration::from_millis(100))
+            .is_ok();
+        release_tx.send(()).unwrap();
+        dropper.join().unwrap();
+        assert_eq!(response.await.unwrap().unwrap(), 1);
+        assert!(
+            !returned_early,
+            "worker drop returned while native work was running"
+        );
+        let reopened = super::super::open(&path, &[9; 32]).unwrap();
+        assert_eq!(
+            reopened
+                .query_row(
+                    "SELECT count(*) FROM agents WHERE id='drained'",
+                    [],
+                    |row| row.get::<_, i64>(0)
+                )
+                .unwrap(),
+            1
+        );
+    }
 
     #[tokio::test(flavor = "current_thread")]
     async fn admission_is_bounded_and_worker_does_not_block_async_runtime() {

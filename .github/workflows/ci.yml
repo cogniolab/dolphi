@@ -37,8 +37,20 @@ jobs:
         with:
           components: rustfmt, clippy
       - run: cargo fmt --check
+      - if: matrix.profile == 'sqlcipher'
+        run: cargo fmt --manifest-path experiments/sqlcipher/Cargo.toml --check
+      - if: matrix.profile == 'sqlcipher'
+        run: cargo test --locked --manifest-path experiments/sqlcipher/Cargo.toml --lib
       - run: cargo clippy --locked ${{ matrix.args }} --all-targets -- -D warnings
       - run: cargo test --locked ${{ matrix.args }} --all-targets
+      # Native teardown previously crashed after all assertions had passed.
+      # Fresh test processes exercise cleanup at the process boundary.
+      - if: matrix.profile == 'sqlcipher'
+        name: Repeat storage qualification across ten fresh processes
+        run: |
+          for attempt in {1..10}; do
+            cargo test --locked --no-default-features --features sqlcipher-backend --test storage_qualification
+          done
       - run: cargo test --locked ${{ matrix.args }} --doc
       - run: cargo run --locked ${{ matrix.args }} --example community
       - run: cargo build --locked ${{ matrix.args }} --bin dolphi-server

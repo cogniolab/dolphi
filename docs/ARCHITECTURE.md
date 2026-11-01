@@ -50,6 +50,13 @@ The SQLCipher adapter and pinned native packaging live under
 `experiments/sqlcipher`. No commercial engine or hosted account is required.
 Their native notices, checksums and source/signature checks ship with the source.
 
+The SQLCipher connection runs on a dedicated native worker. Explicit worker
+shutdown joins it outside the async runtime. Dropping the final worker handle
+also waits for accepted work and native connection cleanup; this final drop can
+block its calling thread. Worker startup failure and canceled opening follow the
+same cleanup path. Connections must finish closing before process-wide crypto
+cleanup begins.
+
 ## Recovery
 
 Logical snapshots contain ten application tables. Restore validates rows,

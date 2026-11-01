@@ -5,6 +5,10 @@ currently remains `0.1.0` and registry publishing is disabled.
 
 ## Unreleased
 
+- Join SQLCipher worker teardown on final drop and failed/canceled opening,
+  preventing native cleanup from continuing after its owning handle returns.
+- Add worker-lifetime regression coverage and repeated process-exit qualification.
+
 Future work is tracked in the [roadmap](ROADMAP.md).
 
 ## 0.1.0-alpha.1 — October 31, 2026
