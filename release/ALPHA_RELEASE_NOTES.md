@@ -1,25 +1,26 @@
-# Dolphi Community v0.1.0-alpha.1
+# Dolphi Community v0.1.0-alpha.2
 
 **Give your agents memory, keep control of your data.**
 
-This source alpha introduces persistent private agent memory, trusted-owner
-shared proposals, authentication/revocation, logical quotas and durable retries.
-It includes a Rust library, local HTTP server, Python SDK and agent-only MCP.
+This developer alpha addresses a SQLCipher worker-lifetime gap found during
+follow-up validation of alpha.1. The final worker handle now drains accepted
+work and joins native connection cleanup before returning. Failed or canceled
+opening uses the same lifecycle guard. Explicit asynchronous worker shutdown
+still joins outside the async runtime; the fallback final drop can block.
 
-Recovery includes independent backup keys, verified new-key restore, credential
-invalidation, cross-profile migration and bounded streaming snapshots. The
-default engine is MIT Turso; SQLCipher Community is an opt-in build profile.
-Basic safety controls and operational backup helpers are Community features.
+The regression fails on the previous implementation and passes with the fix.
+Hosted checks include the standalone worker tests and storage qualification
+across ten fresh SQLCipher processes. Exact commit, job results, recovery scope
+and source hashes are recorded in the release's `VALIDATION.json`.
 
-Start with the [quick start](../docs/QUICKSTART.md). The release is source-first;
-no hosted Pro service or registry package publication is announced.
+This release also puts the tagline directly below the Dolphi logo and adds
+source-code navigation and a README-first overview link.
 
-This is a developer preview. APIs/formats may change. Physical-storage durability,
-independent security assessment, production recovery objectives and additional
-platforms remain unqualified. See [limits](../docs/LIMITS.md),
-[security](../SECURITY.md) and [roadmap](../ROADMAP.md).
+The Community capabilities remain persistent private agent memory,
+owner-reviewed shared changes, authentication/revocation, quotas, durable
+receipts, encrypted recovery, backend migration, Rust/HTTP/Python and agent MCP.
 
-The [developer prerelease](https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.1)
-includes the source archive, `SHA256SUMS` and `VALIDATION.json`.
-All seven [hosted CI jobs](https://github.com/cogniolab/dolphi/actions/runs/41254184656)
-passed for release commit `8e3875cc50f2e92adc9ce7a546621286d1b3feb7`.
+Start with the [quick start](../docs/QUICKSTART.md). Both storage profiles remain
+alpha. APIs/formats may change. Physical-storage power-loss qualification,
+independent assessment and sensitive-production qualification remain open.
+See [limits](../docs/LIMITS.md) and [security](../SECURITY.md).

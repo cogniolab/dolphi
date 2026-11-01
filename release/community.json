@@ -1,12 +1,10 @@
 {
   "schema": 1,
-  "tag": "v0.1.0-alpha.1",
+  "tag": "v0.1.0-alpha.2",
   "stage": "developer_alpha",
   "repository": "cogniolab/dolphi",
   "security_email": "dev@cogniolab.com",
   "private_vulnerability_reporting_verified": true,
   "maintainer_contact": "dev@cogniolab.com",
-  "published": true,
-  "release_url": "https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.1",
-  "release_commit": "8e3875cc50f2e92adc9ce7a546621286d1b3feb7"
+  "published": false
 }

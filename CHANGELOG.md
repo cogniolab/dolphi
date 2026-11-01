@@ -5,11 +5,24 @@ currently remains `0.1.0` and registry publishing is disabled.
 
 ## Unreleased
 
+Future work is tracked in the [roadmap](ROADMAP.md).
+
+## 0.1.0-alpha.2 — prepared October 31, 2026
+
+Addresses the worker-lifetime gap found while investigating native process crashes
+and recovery failures in follow-up validation of alpha.1. Publication and exact
+validation results are recorded with the release.
+
+### Fixed
+
 - Join SQLCipher worker teardown on final drop and failed/canceled opening,
   preventing native cleanup from continuing after its owning handle returns.
 - Add worker-lifetime regression coverage and repeated process-exit qualification.
 
-Future work is tracked in the [roadmap](ROADMAP.md).
+### Changed
+
+- Position the tagline beneath the Dolphi logo and add source-code navigation.
+- Publish a README-first link through the repository's About section.
 
 ## 0.1.0-alpha.1 — October 31, 2026
 

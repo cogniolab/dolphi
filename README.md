@@ -90,7 +90,7 @@ sources. Both Dolphi profiles remain alpha. See [storage profiles](docs/ARCHITEC
 
 For a persistent encrypted server and two-worker Python demo, follow the
 [quick start](docs/QUICKSTART.md). Download the source, checksums and validation
-report from [v0.1.0-alpha.1](https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.1).
+report from the [developer prereleases](https://github.com/cogniolab/dolphi/releases).
 Cargo/PyPI packages and hosted services are not published by this alpha.
 
 ## A small Rust example
