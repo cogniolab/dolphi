@@ -24,3 +24,8 @@ Start with the [quick start](../docs/QUICKSTART.md). Both storage profiles remai
 alpha. APIs/formats may change. Physical-storage power-loss qualification,
 independent assessment and sensitive-production qualification remain open.
 See [limits](../docs/LIMITS.md) and [security](../SECURITY.md).
+
+The [published prerelease](https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.2)
+includes source, checksums and `VALIDATION.json`. All seven
+[hosted CI jobs](https://github.com/cogniolab/dolphi/actions/runs/41256331196)
+passed for release commit `a6a3f4ca357e44a3b1d1ed01bdc59a94f479edcc`.

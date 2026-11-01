@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="https://dolphi.dev">Website</a> ·
   <a href="docs/QUICKSTART.md">Quick start</a> ·
   <a href="docs/README.md">Documentation</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·

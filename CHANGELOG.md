@@ -7,11 +7,12 @@ currently remains `0.1.0` and registry publishing is disabled.
 
 Future work is tracked in the [roadmap](ROADMAP.md).
 
-## 0.1.0-alpha.2 — prepared October 31, 2026
+## 0.1.0-alpha.2 — October 31, 2026
 
 Addresses the worker-lifetime gap found while investigating native process crashes
-and recovery failures in follow-up validation of alpha.1. Publication and exact
-validation results are recorded with the release.
+and recovery failures in follow-up validation of alpha.1. The
+[developer prerelease](https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.2)
+includes exact validation results, source archives and checksums.
 
 ### Fixed
 

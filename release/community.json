@@ -6,5 +6,7 @@
   "security_email": "dev@cogniolab.com",
   "private_vulnerability_reporting_verified": true,
   "maintainer_contact": "dev@cogniolab.com",
-  "published": false
+  "published": true,
+  "release_url": "https://github.com/cogniolab/dolphi/releases/tag/v0.1.0-alpha.2",
+  "release_commit": "a6a3f4ca357e44a3b1d1ed01bdc59a94f479edcc"
 }
